@@ -1,0 +1,27 @@
+<h3 *ngIf="products; else: noProduct">{{title}}</h3>
+
+<div class="form-group">
+  <input 
+    class="form-control" 
+    id="productName"
+    placeholder="Search for products"
+    [(ngModel)]= "filterText"
+  />
+  <small id="emailHelp" class="form-text text-muted">Searching for <strong>{{filterText}}</strong></small>
+</div>
+
+<div class="row">
+  <ng-template #noProduct>
+    <div class="alert alert-primary" role="alert">
+      There is no product in this category.
+    </div>
+  </ng-template>
+  <div *ngFor="let product of products | productFilter:filterText" class="card" style="width: 18rem;">
+    <img class="card-img-top" [src]="product.imageUrl" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{product.name | uppercase}} {{product.price | currency: 'USD':true:"1.2-2"}}</h5>
+      <p class="card-text">{{product.description}}</p>
+      <a href="#" class="btn btn-primary">More info</a>
+    </div>
+  </div>
+</div>
